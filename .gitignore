@@ -1,5 +1,5 @@
 build/
-*.lua
+/*.lua
 *.pyc
 *.json
 
