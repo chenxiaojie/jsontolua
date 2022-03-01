@@ -4,11 +4,13 @@
 import json
 import sys
 
+
 def space_str(layer):
     spaces = ""
     for i in range(0, layer):
         spaces += '\t'
     return spaces
+
 
 def dic_to_lua_str(data, layer=0):
     d_type = type(data)
@@ -64,7 +66,7 @@ def dic_to_lua_str(data, layer=0):
         raise (d_type, 'is error')
 
 
-def str_to_lua_table(jsonStr):
+def str_to_lua_table(jsonStr, luaFile):
     data_dic = None
     try:
         data_dic = json.loads(jsonStr)
@@ -74,7 +76,7 @@ def str_to_lua_table(jsonStr):
         pass
     finally:
         pass
-    bytes = ''
+    bytes = luaFile.replace('.lua', '') + ' = '
     for it in dic_to_lua_str(data_dic):
         bytes += it
     return bytes
@@ -82,13 +84,15 @@ def str_to_lua_table(jsonStr):
 
 def file_to_lua_file(jsonFile, luaFile):
     with open(luaFile, 'w', encoding='utf-8') as luafile:
-        with open(jsonFile) as jsonfile:
-            luafile.write(str_to_lua_table(jsonfile.read()))
+        with open(jsonFile, 'r', encoding='utf-8') as jsonfile:
+            luafile.write(str_to_lua_table(jsonfile.read(), luaFile))
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("请输入两个参数：jsonfile（输入文件名）、luafile（输出文件名）")
+        exit(0)
+
     jsonFile = sys.argv[1]
     luaFile = sys.argv[2]
     file_to_lua_file(jsonFile, luaFile)
