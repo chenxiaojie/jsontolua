@@ -43,9 +43,10 @@ def dic_to_lua_str(data, layer=0):
             yield (space_str(layer + 1))
             if type(k) is int:
                 yield ('[' + str(k) + ']')
-            else:
+            elif type(k) is str and str(k).isdigit():
                 yield ('[' + str(k) + ']')
-                #yield (k)
+            else:
+                yield (k)
             yield (' = ')
             try:
                 for sub in dic_to_lua_str(v, layer + 1):
