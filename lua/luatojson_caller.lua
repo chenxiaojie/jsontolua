@@ -1,6 +1,4 @@
--- package.path = "lua/?.lua;"..package.path
-
-local luatojson = require "lua/luatojson"
+local luatojson = require "luatojson"
 
 local function readFile(luafile)
     local file = io.open(luafile, "rb")

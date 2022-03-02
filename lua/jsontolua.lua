@@ -6,7 +6,7 @@ local function serializeTable(val, name, skipnewlines, depth, ignorekey)
 
     local tmp = string.rep(" ", depth)
 
-     -- xiaojie custom ignorekey
+    -- xiaojie custom ignorekey
     if not ignorekey and name then
         if tonumber(name) then
             tmp = tmp .. "[" .. name .. "] = "
@@ -19,7 +19,8 @@ local function serializeTable(val, name, skipnewlines, depth, ignorekey)
         tmp = tmp .. "{" .. (not skipnewlines and "\n" or "")
         -- xiaojie custom if
         for k, v in pairs(val) do
-            tmp = tmp .. serializeTable(v, k, skipnewlines, depth + 1, name == "table") .. "," .. (not skipnewlines and "\n" or "")
+            tmp = tmp .. serializeTable(v, k, skipnewlines, depth + 1, name == "table") .. "," ..
+                      (not skipnewlines and "\n" or "")
         end
 
         tmp = tmp .. string.rep(" ", depth) .. "}"
