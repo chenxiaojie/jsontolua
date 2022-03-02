@@ -77,6 +77,7 @@ def str_to_lua_table(jsonStr, luaFile = 'object'):
     finally:
         pass
     bytes = luaFile.replace('.lua', '') + ' = '
+    bytes = ''
     for it in dic_to_lua_str(data_dic):
         bytes += it
     return bytes
