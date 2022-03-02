@@ -1,3 +1,6 @@
+package.cpath = "/Users/chenxiaojie/.luarocks/lib/lua/5.1/?.so;" .. package.cpath
+package.path = "/Users/chenxiaojie/xjworkspace/intellij/others/jsontolua/lua/?.lua;" .. package.path
+
 local jsontolua = require "jsontolua"
 local luatojson = require "luatojson"
 
