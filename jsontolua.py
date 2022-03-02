@@ -66,7 +66,7 @@ def dic_to_lua_str(data, layer=0):
         raise (d_type, 'is error')
 
 
-def str_to_lua_table(jsonStr, luaFile):
+def str_to_lua_table(jsonStr, luaFile = 'object'):
     data_dic = None
     try:
         data_dic = json.loads(jsonStr)
