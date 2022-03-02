@@ -1,4 +1,4 @@
-package.path = "lua/?.lua;"..package.path
+-- package.path = "lua/?.lua;"..package.path
 
 local jsontolua = require "lua/jsontolua"
 local luatojson = require "lua/luatojson"
