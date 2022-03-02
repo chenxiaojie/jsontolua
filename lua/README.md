@@ -11,14 +11,15 @@ lua5.1
 ```
 brew install luarocks
 # 安装5.1的依赖
-luarocks --lua-dir=/usr/local/opt/lua@5.1 install lua-json
-luarocks --lua-dir=/usr/local/opt/lua@5.1 install lua-json
+luarocks --lua-dir=/usr/local/opt/lua@5.1 install lua-cjson
 ```
 
-### 将下载好的依赖包关联到lua lib才可以被require到
+### 配置依赖包环境变量
 ```
-ln -s /Users/chenxiaojie/.luarocks/lib/lua/5.1/cjson.so  /usr/local/Cellar/lua@5.1/5.1.5_8/lib/cjson.so
-ln -s /Users/chenxiaojie/.luarocks/lib/lua/5.1/json.so  /usr/local/Cellar/lua@5.1/5.1.5_8/lib/json.so
+vi ~/.zshrc
+# or vi ~/.bash_profile
+LUA_CPATH="/Users/chenxiaojie/.luarocks/lib/lua/5.1/?.so;;"
+export LUA_CPATH
 ```
 
 ### 运行测试代码
