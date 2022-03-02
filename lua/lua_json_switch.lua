@@ -1,5 +1,6 @@
+--deprecated
+
 json = require "json"
-cjson = require "cjson"
 
 local t = {
     a = "hello",
@@ -22,12 +23,6 @@ print("##################################################")
 str_json = json.encode(t)
 print(str_json)
 print("##################################################")
-str_json = cjson.encode(t)
-print(str_json)
-print("##################################################")
 t = json.decode(str_json)
-print(t)
-print("##################################################")
-t = cjson.decode(str_json)
 print(t)
 print("##################################################")
