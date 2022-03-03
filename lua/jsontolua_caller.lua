@@ -28,4 +28,10 @@ end
 
 tableString = jsontolua.jsontolua(fileContent)
 print(tableString)
--- print(luatojson.luatojson(tableString))
+-- jsonString = luatojson.luatojson(tableString)
+-- tableString2 = jsontolua.jsontolua(jsonString)
+-- print(tableString2)
+-- jsonString2 = luatojson.luatojson(tableString2)
+-- print(jsonString2)
+-- print(tableString == tableString2)
+-- print(jsonString == jsonString2)

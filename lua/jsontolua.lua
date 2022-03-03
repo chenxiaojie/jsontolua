@@ -1,5 +1,23 @@
 cjson = require "cjson"
 
+local function pairsByKeys(t, f)
+    local a = {}
+    for n in pairs(t) do
+        table.insert(a, n)
+    end
+    table.sort(a, f)
+    local i = 0 -- iterator variable
+    local iter = function() -- iterator function
+        i = i + 1
+        if a[i] == nil then
+            return nil
+        else
+            return a[i], t[a[i]]
+        end
+    end
+    return iter
+end
+
 local function serializeTable(val, name, skipnewlines, depth, ignorekey)
     skipnewlines = skipnewlines or false
     depth = depth or 0
@@ -17,11 +35,29 @@ local function serializeTable(val, name, skipnewlines, depth, ignorekey)
 
     if type(val) == "table" then
         tmp = tmp .. "{" .. (not skipnewlines and "\n" or "")
-        -- xiaojie custom if
+
+        local keysIsNumber = true
         for k, v in pairs(val) do
-            tmp = tmp .. serializeTable(v, k, skipnewlines, depth + 1, name == "table") .. "," ..
-                      (not skipnewlines and "\n" or "")
+            if not tonumber(k) then
+                keysIsNumber = false
+                break
+            end
         end
+
+        if keysIsNumber then
+            for k, v in pairsByKeys(val) do
+                tmp = tmp .. serializeTable(v, k, skipnewlines, depth + 1, name == "table") .. "," ..
+                        (not skipnewlines and "\n" or "")
+            end
+        else
+            -- xiaojie custom if
+            for k, v in pairs(val) do
+                tmp = tmp .. serializeTable(v, k, skipnewlines, depth + 1, name == "table") .. "," ..
+                        (not skipnewlines and "\n" or "")
+            end
+        end
+
+        
 
         tmp = tmp .. string.rep(" ", depth) .. "}"
     elseif type(val) == "number" then
@@ -35,6 +71,36 @@ local function serializeTable(val, name, skipnewlines, depth, ignorekey)
     end
 
     return tmp
+end
+
+-- from 冰雪 test, 忽略
+local function serializeTable2(obj)
+    local lua = ""
+    local t = type(obj)
+    if t == "number" then
+        lua = lua .. obj
+    elseif t == "boolean" then
+        lua = lua .. tostring(obj)
+    elseif t == "string" then
+        lua = lua .. string.format("%q", obj)
+    elseif t == "table" then
+        lua = lua .. "{"
+        for k, v in pairs(obj) do
+            lua = lua .. "[" .. serializeTable2(k) .. "]=" .. serializeTable2(v) .. ","
+        end
+        local metatable = getmetatable(obj)
+        if metatable ~= nil and type(metatable.__index) == "table" then
+            for k, v in pairs(metatable.__index) do
+                lua = lua .. "[" .. serializeTable2(k) .. "]=" .. serializeTable2(v) .. ","
+            end
+        end
+        lua = lua .. "}"
+    elseif t == "nil" then
+        return nil
+    else
+        error("can not serializeTable2 a " .. t .. " type.")
+    end
+    return lua
 end
 
 local function mapKeyToNumber(maps)
