@@ -28,4 +28,8 @@ end
 -- Lang.Scenes = "/Users/chenxiaojie/Downloads/bingxue/冰雪/build/LogicServer/data/language/Zh-CN/Scenes.config"
 -- Lang.Scenes = loadstring("return { " .. readFile(Lang.Scenes) .. " }")().Scenes
 
+dofile("/Users/chenxiaojie/Downloads/bingxue/冰雪/build/LogicServer/data/language/Zh-CN/Scenes.config");
+Lang = {}
+Lang.Scenes = Scenes
+
 print(luatojson.luatojson(fileContent))
