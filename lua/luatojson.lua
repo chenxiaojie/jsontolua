@@ -20,6 +20,16 @@ local function mapKeyToString(maps)
         -- if type(v) == "table" then ======== xiaojie custom
         if k ~= "table" and k ~= "group" and type(v) == "table" then
             stable[k] = mapKeyToString(v)
+        elseif k == "group" then
+            local len = 0
+            for _, _ in pairs(v) do
+                len = len + 1
+            end
+
+            if len == 0 then
+                cjson2.encode_empty_table_as_object(false) 
+            end
+            stable[k] = v
         else
             stable[k] = v
         end
