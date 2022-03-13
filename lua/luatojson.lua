@@ -18,7 +18,7 @@ local function mapKeyToString(maps)
     for k, v in pairs(maps or {}) do
         k = tostring(k) or k
         -- if type(v) == "table" then ======== xiaojie custom
-        if k ~= "table" and type(v) == "table" then
+        if k ~= "table" and k ~= "group" and type(v) == "table" then
             stable[k] = mapKeyToString(v)
         else
             stable[k] = v
