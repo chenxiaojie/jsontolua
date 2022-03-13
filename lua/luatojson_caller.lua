@@ -24,4 +24,8 @@ if not fileContent then
     return
 end
 
+-- Lang = {}
+-- Lang.Scenes = "/Users/chenxiaojie/Downloads/bingxue/冰雪/build/LogicServer/data/language/Zh-CN/Scenes.config"
+-- Lang.Scenes = loadstring("return { " .. readFile(Lang.Scenes) .. " }")().Scenes
+
 print(luatojson.luatojson(fileContent))
