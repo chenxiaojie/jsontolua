@@ -47,6 +47,8 @@ def dic_to_lua_str(data, layer=0):
                 yield ('[' + str(k) + ']')
             elif type(k) is str and str(k).isdigit():
                 yield ('[' + str(k) + ']')
+            elif type(k) is str:
+                yield ('[\'' + str(k) + '\']')
             else:
                 yield (k)
             yield (' = ')
